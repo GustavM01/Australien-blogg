@@ -1,0 +1,147 @@
+/* .navbar {
+  display: flex;
+  width: 100%;
+  background-color: lightgray;
+  justify-content: center;
+}
+
+.navbar-center {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+.link-container li {
+  text-decoration: none;
+}
+
+.link-container a {
+  font-weight: bolder;
+  font-size: large;
+  text-decoration: none;
+  color: black;
+  margin: 20px;
+}
+
+.link-container a:hover {
+  color: rgb(85, 85, 85);
+} */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  background-color: #333;
+  color: white;
+  position: relative;
+  font-size: large;
+  height: 1rem;
+}
+
+/* Tre sektioner: vänster, mitten, höger */
+.navbar-left,
+.navbar-right {
+  width: 150px; /* Lika breda så mitten hamnar mitt på */
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right {
+  justify-content: center;
+}
+
+.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar-center a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar-center a:hover {
+  color: lightgray;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.close-container {
+  display: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar-left,
+  .navbar-right {
+    width: auto;
+  }
+
+  .navbar-center {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    /* width: 60%; */
+    background-color: #444;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 1rem;
+    gap: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .navbar-center.open {
+    transform: translateX(0);
+  }
+
+  .navbar-center a {
+    font-size: 1.2rem;
+  }
+
+  .menu-toggle {
+    padding-left: 1rem;
+    display: block;
+  }
+
+  /* .menu-close {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  } */
+  .close-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    transition: color 0.2s;
+  }
+}

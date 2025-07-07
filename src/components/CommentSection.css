@@ -1,0 +1,41 @@
+.comment-section {
+  margin-top: 2rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comment-form textarea {
+  width: 10%;
+  min-height: 60px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment-form button {
+  padding: 0.5rem 1rem;
+}
+
+.comment {
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: #666;
+}

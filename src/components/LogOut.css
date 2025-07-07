@@ -1,0 +1,18 @@
+.log-out-container {
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f;
+}
