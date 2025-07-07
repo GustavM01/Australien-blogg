@@ -6,6 +6,7 @@ import { MdArrowBack } from "react-icons/md";
 import CommentSection from "../components/CommentSection";
 
 import "./Post.css";
+import { formatTimestamp } from "../utils/formatTimestamp";
 
 export default function Post() {
   const { postId } = useParams();
@@ -64,12 +65,10 @@ export default function Post() {
           </>
         )}
         <p className="single-post-footer">
-          {post.author.name} • {post.createdAt?.toDate().toLocaleDateString()}
-          <span> • </span>
-          {post.createdAt?.toDate().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          <p className="post-author">{post.author.name}</p>
+          <p className="post-time">
+            {post.createdAt && formatTimestamp(post.createdAt)}
+          </p>
         </p>
         <CommentSection postId={postId} />
       </div>
