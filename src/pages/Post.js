@@ -48,6 +48,7 @@ export default function Post() {
           <>
             <img
               className="single-post-img"
+              title="Klicka för storbild"
               src={post.imageUrl}
               alt={post.title}
               onClick={() => setShowFullImage(true)}
