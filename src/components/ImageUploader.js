@@ -20,18 +20,22 @@ export default function ImageUploader({ onUpload }) {
     setError(null);
 
     try {
+      const imagePath = `images/${Date.now()}_${file.name}`;
+      const fileRef = ref(storage, imagePath);
+
       const compressedFile = await imageCompression(file, {
         maxSizeMB: 1,
         maxWidthOrHeight: 1920,
         useWebWorker: true,
       });
 
-      const fileRef = ref(storage, `images/${Date.now()}_${file.name}`);
       await uploadBytes(fileRef, compressedFile);
-
       const downloadUrl = await getDownloadURL(fileRef);
+
       console.log("Bild-URL:", downloadUrl);
-      if (onUpload) onUpload(downloadUrl);
+      console.log("Image path:", imagePath);
+
+      if (onUpload) onUpload({ url: downloadUrl, path: imagePath });
 
       alert("Uppladningen lyckades!");
       setFile(null);

@@ -3,3 +3,9 @@
   align-items: center;
   flex-direction: column;
 }
+
+@media (max-width: 768px) {
+  .home-title {
+    width: 90%;
+  }
+}

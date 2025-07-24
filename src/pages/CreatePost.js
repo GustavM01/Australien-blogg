@@ -11,6 +11,7 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [imagePath, setImagePath] = useState("");
 
   const navigate = useNavigate();
 
@@ -29,6 +30,7 @@ const CreatePost = () => {
       title,
       content,
       imageUrl,
+      imagePath,
       createdAt: serverTimestamp(),
       author: {
         uid: user.uid,
@@ -70,7 +72,12 @@ const CreatePost = () => {
           required
           rows={6}
         />
-        <ImageUploader onUpload={setImageUrl} />
+        <ImageUploader
+          onUpload={({ url, path }) => {
+            setImageUrl(url);
+            setImagePath(path);
+          }}
+        />
         {imageUrl && (
           <div>
             <p>Förhandsvisning:</p>

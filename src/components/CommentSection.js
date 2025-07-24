@@ -49,7 +49,7 @@ export default function CommentSection({ postId }) {
 
   return (
     <div className="comment-section">
-      <h3>Kommentarer</h3>
+      <h3 className="comment-title">Kommentarer</h3>
       <ul className="comment-list">
         {comments.map((comment) => (
           <li key={comment.id} className="comment">

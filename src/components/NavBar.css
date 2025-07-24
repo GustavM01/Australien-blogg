@@ -1,32 +1,3 @@
-/* .navbar {
-  display: flex;
-  width: 100%;
-  background-color: lightgray;
-  justify-content: center;
-}
-
-.navbar-center {
-  display: flex;
-  align-items: center;
-  list-style-type: none;
-}
-
-.link-container li {
-  text-decoration: none;
-}
-
-.link-container a {
-  font-weight: bolder;
-  font-size: large;
-  text-decoration: none;
-  color: black;
-  margin: 20px;
-}
-
-.link-container a:hover {
-  color: rgb(85, 85, 85);
-} */
-
 .navbar {
   display: flex;
   align-items: center;
@@ -39,12 +10,15 @@
   height: 1rem;
 }
 
-/* Tre sektioner: vänster, mitten, höger */
 .navbar-left,
 .navbar-right {
-  width: 150px; /* Lika breda så mitten hamnar mitt på */
+  width: 150px;
   display: flex;
   align-items: center;
+}
+
+.home-icon {
+  display: none;
 }
 
 .navbar-right {
@@ -90,12 +64,22 @@
     width: auto;
   }
 
+  .home-btn {
+    display: hidden;
+  }
+
+  .home-icon {
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin-left: 3px;
+  }
+
   .navbar-center {
     position: fixed;
     top: 0;
     right: 0;
     height: 100%;
-    /* width: 60%; */
     background-color: #444;
     flex-direction: column;
     align-items: flex-start;
@@ -119,15 +103,6 @@
     display: block;
   }
 
-  /* .menu-close {
-    align-self: flex-end;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-    margin-bottom: 1rem;
-  } */
   .close-container {
     width: 100%;
     display: flex;

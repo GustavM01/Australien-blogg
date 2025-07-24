@@ -35,7 +35,6 @@ export default function PostList() {
       >
         {reverseOrder ? "Visa nyast först " : "Visa äldst först "}
         <FaArrowUp className={`arrow-icon ${reverseOrder ? "rotated" : ""}`} />
-        {/* {reverseOrder ? <FaArrowDown /> : <FaArrowUp />} */}
       </button>
       {displayedPosts.map((post) => (
         <Link

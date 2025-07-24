@@ -1,5 +1,9 @@
 .comment-section {
-  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.comment-title {
+  margin: 0;
 }
 
 .comment-form {
@@ -9,23 +13,33 @@
 }
 
 .comment-form textarea {
-  width: 10%;
+  width: 50%;
   min-height: 60px;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 .comment-form button {
-  padding: 0.5rem 1rem;
+  /* padding: 0.5rem 1rem; */
+  width: 70px;
+  height: 30px;
 }
 
 .comment {
-  margin-top: 1rem;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  width: 60%;
+}
+
+.comment p {
+  margin: 0.5rem 1rem;
 }
 
 .comment-list {
@@ -33,9 +47,50 @@
   flex-direction: column;
   align-items: center;
   padding: 0px;
+  gap: 1rem;
 }
 
 .time {
   font-size: 0.8rem;
   color: #666;
+}
+
+@media (max-width: 1200px) {
+  .comment {
+    width: 80%;
+  }
+
+  .comment-form textarea {
+    width: 65%;
+  }
+}
+
+@media (max-width: 920px) {
+  .comment {
+    width: 50vw;
+  }
+
+  .comment-form textarea {
+    width: 40vw;
+  }
+}
+
+@media (max-width: 770px) {
+  .comment {
+    width: 70vw;
+  }
+
+  .comment-form textarea {
+    width: 55vw;
+  }
+}
+
+@media (max-width: 660px) {
+  .comment {
+    width: 70vw;
+  }
+
+  .comment-form textarea {
+    width: 55vw;
+  }
 }

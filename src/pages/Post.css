@@ -7,7 +7,7 @@
   position: absolute;
   left: 2%;
   background-color: #d2d2d2;
-  /* color: #333; */
+  color: #333;
   border: none;
   border-radius: 5px;
   padding: 0.6rem 1rem;
@@ -28,6 +28,28 @@
 
 .back-icon {
   font-size: 1rem;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 2%;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin: 1rem 0;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
 }
 
 .single-post-container {
@@ -83,4 +105,34 @@
   color: white;
   cursor: pointer;
   z-index: 1000;
+}
+
+/* @media (max-width: 1500px) {
+  .single-post-container {
+    width: 40%;
+  }
+} */
+
+@media (max-width: 920px) {
+  .single-post-container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 770px) {
+  .single-post-container {
+    width: 70%;
+  }
+}
+
+@media (max-width: 660px) {
+  .single-post-container {
+    margin-top: 2.5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .single-post-container {
+    width: 90%;
+  }
 }

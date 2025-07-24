@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserRole } from "../hooks/useUserRole";
 import { useAuth } from "../hooks/useAuth";
 import LogOut from "./LogOut";
+import { AiFillHome } from "react-icons/ai";
 
 import "./NavBar.css";
 
@@ -11,6 +12,8 @@ export default function NavBar() {
   const user = useAuth();
   const menuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,7 +31,14 @@ export default function NavBar() {
 
   return (
     <nav className="navbar">
-      <div className="navbar-left"></div>
+      <div className="navbar-left">
+        <AiFillHome
+          onClick={() => {
+            navigate("/");
+          }}
+          className="home-icon"
+        />
+      </div>
       <div className={`navbar-center ${menuOpen ? "open" : ""}`} ref={menuRef}>
         <div className="close-container">
           <button className="close-btn" onClick={() => setMenuOpen(false)}>

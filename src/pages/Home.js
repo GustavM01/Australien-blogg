@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className="homeContainer">
-      {user && <h2>Välkommen {user.displayName}</h2>}
+      {user && <h2 className="home-title">Välkommen {user.displayName}</h2>}
       {!user && <p>Logga in för att se inläggen.</p>}
       {user && <PostList />}
     </div>

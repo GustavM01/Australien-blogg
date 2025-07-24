@@ -15,10 +15,10 @@ export function useUserRole() {
         if (snap.exists()) {
           setRole(snap.data().role);
         } else {
-          setRole("user"); // fallback om ingen roll finns
+          setRole("user");
         }
       } else {
-        setRole(null); // inte inloggad
+        setRole(null);
       }
     };
 
