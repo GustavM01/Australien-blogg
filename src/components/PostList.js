@@ -9,7 +9,14 @@ import "./PostList.css";
 
 export default function PostList() {
   const [posts, setPosts] = useState([]);
-  const [reverseOrder, setReverseOrder] = useState(false);
+  const [reverseOrder, setReverseOrder] = useState(() => {
+    const stored = localStorage.getItem("reverseOrder");
+    return stored === "true";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("reverseOrder", reverseOrder);
+  }, [reverseOrder]);
 
   useEffect(() => {
     const loadPosts = async () => {

@@ -21,7 +21,8 @@
   align-items: center;
 }
 
-.back-btn:hover {
+.back-btn:hover,
+.edit-btn:hover {
   background-color: #e0e0e0;
   color: #000;
 }
@@ -50,6 +51,24 @@
 
 .delete-btn:hover {
   background-color: #d32f2f;
+}
+
+.edit-btn {
+  position: absolute;
+  right: 2%;
+  background-color: #d2d2d2;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-top: 4rem;
+
+  display: inline-flex;
+  align-items: center;
 }
 
 .single-post-container {
@@ -107,6 +126,56 @@
   z-index: 1000;
 }
 
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 70%;
+  max-width: 600px;
+  min-height: 300px;
+  overflow: hidden;
+}
+
+.popup-content h2 {
+  margin: 0;
+}
+
+.popup-content input {
+  font-size: medium;
+  font-family: inherit;
+}
+
+.popup-content textarea {
+  min-height: 240px;
+  width: 80%;
+  font-family: inherit;
+  resize: none;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+}
+
 /* @media (max-width: 1500px) {
   .single-post-container {
     width: 40%;
@@ -128,6 +197,9 @@
 @media (max-width: 660px) {
   .single-post-container {
     margin-top: 2.5rem;
+  }
+  .popup-content textarea {
+    min-height: 300px;
   }
 }
 

@@ -7,6 +7,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { MdArrowBack } from "react-icons/md";
 import CommentSection from "../components/CommentSection";
@@ -23,6 +24,10 @@ export default function Post() {
   const [post, setPost] = useState(null);
   const [showFullImage, setShowFullImage] = useState(false);
 
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedContent, setEditedContent] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +43,22 @@ export default function Post() {
 
     fetchPost();
   }, [postId]);
+
+  useEffect(() => {
+    if (showEditPopup) {
+      // Lås scroll
+      document.body.style.overflow = "hidden";
+    } else {
+      // Återställ scroll
+      document.body.style.overflow = "";
+    }
+
+    // Säkerställ att scrollen återställs även om komponenten tas bort
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showEditPopup]);
+
   if (!post) return <p>Laddar...</p>;
 
   const handleDeletePost = async () => {
@@ -74,6 +95,24 @@ export default function Post() {
     }
   };
 
+  const handleUpdatePost = async () => {
+    try {
+      const ref = doc(db, "posts", postId);
+      await updateDoc(ref, {
+        title: editedTitle.trim(),
+        content: editedContent.trim(),
+      });
+      setPost((prev) => ({
+        ...prev,
+        title: editedTitle,
+        content: editedContent,
+      }));
+      setShowEditPopup(false);
+    } catch (err) {
+      console.error("Kunde inte uppdatera inlägget", err);
+    }
+  };
+
   return (
     <div className="post-page-container">
       <button
@@ -85,9 +124,21 @@ export default function Post() {
         <MdArrowBack className="back-icon" /> Tillbaka
       </button>
       {role === "admin" && (
-        <button className="delete-btn" onClick={handleDeletePost}>
-          Ta bort inlägg
-        </button>
+        <>
+          <button className="delete-btn" onClick={handleDeletePost}>
+            Ta bort inlägg
+          </button>
+          <button
+            className="edit-btn"
+            onClick={() => {
+              setShowEditPopup(true);
+              setEditedTitle(post.title);
+              setEditedContent(post.content);
+            }}
+          >
+            Ändra
+          </button>
+        </>
       )}
       <div className="single-post-container">
         <h1 className="single-post-title">{post.title}</h1>
@@ -121,6 +172,26 @@ export default function Post() {
         </p>
         <CommentSection postId={postId} />
       </div>
+      {showEditPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2>Redigera inlägg</h2>
+            <input
+              type="text"
+              value={editedTitle}
+              onChange={(e) => setEditedTitle(e.target.value)}
+            />
+            <textarea
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+            />
+            <div className="popup-buttons">
+              <button onClick={() => setShowEditPopup(false)}>Avbryt</button>
+              <button onClick={handleUpdatePost}>Spara</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
