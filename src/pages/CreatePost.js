@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase";
 import ImageUploader from "../components/ImageUploader";
+import { useUserRole } from "../hooks/useUserRole";
 
 import "./CreatePost.css";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +14,17 @@ const CreatePost = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [imagePath, setImagePath] = useState("");
 
+  const role = useUserRole();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (role && role !== "admin") {
+      navigate("/");
+    }
+  }, [role, navigate]);
+
+  if (!role) return null; // eller loader
 
   const handleSubmit = async (e) => {
     e.preventDefault();
