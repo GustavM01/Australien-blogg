@@ -19,6 +19,7 @@
   margin-bottom: 0.5rem;
   font-size: inherit;
   font-family: inherit;
+  resize: none;
 }
 
 .comment-form button {

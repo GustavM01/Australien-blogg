@@ -164,12 +164,12 @@ export default function Post() {
             )}
           </>
         )}
-        <p className="single-post-footer">
+        <div className="single-post-footer">
           <p className="post-author">{post.author.name}</p>
           <p className="post-time">
             {post.createdAt && formatTimestamp(post.createdAt)}
           </p>
-        </p>
+        </div>
         <CommentSection postId={postId} />
       </div>
       {showEditPopup && (
