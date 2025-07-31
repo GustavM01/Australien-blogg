@@ -1,0 +1,13 @@
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.upload-container label {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}

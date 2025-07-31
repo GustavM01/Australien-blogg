@@ -11,11 +11,9 @@ import { useNavigate } from "react-router-dom";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [imagePath, setImagePath] = useState("");
+  const [images, setImages] = useState([]); // Array med {url, path}
 
   const role = useUserRole();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,10 +22,16 @@ const CreatePost = () => {
     }
   }, [role, navigate]);
 
-  if (!role) return null; // eller loader
+  useEffect(() => {
+    console.log("Uppdaterade bilder:", images);
+  }, [images]);
+
+  if (!role) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("Sparas i Firestore:", images);
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -40,8 +44,7 @@ const CreatePost = () => {
     const post = {
       title,
       content,
-      imageUrl,
-      imagePath,
+      images,
       createdAt: serverTimestamp(),
       author: {
         uid: user.uid,
@@ -53,12 +56,12 @@ const CreatePost = () => {
       await addDoc(collection(db, "posts"), post);
       setTitle("");
       setContent("");
-      setImageUrl("");
+      setImages([]);
+      navigate("/");
     } catch (error) {
       console.error("Fel vid sparande:", error);
       alert("Något gick fel när inlägget skulle sparas.");
     }
-    navigate("/");
   };
 
   return (
@@ -67,7 +70,6 @@ const CreatePost = () => {
       <form onSubmit={handleSubmit} className="create-post-form">
         <input
           className="create-post-title"
-          name="post title"
           type="text"
           placeholder="Titel"
           value={title}
@@ -76,7 +78,6 @@ const CreatePost = () => {
         />
         <textarea
           className="create-post-text"
-          name="post text"
           placeholder="Skriv ditt inlägg här..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -84,19 +85,24 @@ const CreatePost = () => {
           rows={6}
         />
         <ImageUploader
-          onUpload={({ url, path }) => {
-            setImageUrl(url);
-            setImagePath(path);
-          }}
+          onUpload={(uploadedImages) =>
+            setImages((prev) => [...prev, ...uploadedImages])
+          }
         />
-        {imageUrl && (
-          <div>
-            <p>Förhandsvisning:</p>
-            <img
-              src={imageUrl}
-              alt="Uppladdad"
-              style={{ maxWidth: "300px", marginTop: "10px" }}
-            />
+
+        {images.length > 0 && (
+          <div style={{ marginTop: "10px" }}>
+            <p>Förhandsvisning av uppladdade bilder:</p>
+            <div className="preview-img">
+              {images.map((img, index) => (
+                <img
+                  key={index}
+                  src={img.url}
+                  alt={`Uppladdad bild ${index + 1}`}
+                  style={{ maxWidth: "150px", borderRadius: "8px" }}
+                />
+              ))}
+            </div>
           </div>
         )}
         <button className="create-post-btn" type="submit">

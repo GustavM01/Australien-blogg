@@ -22,11 +22,12 @@ export default function Post() {
   const role = useUserRole();
 
   const [post, setPost] = useState(null);
-  const [showFullImage, setShowFullImage] = useState(false);
+  const [showFullImage, setShowFullImage] = useState(null);
 
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
+  const [currentImage, setCurrentImage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -71,12 +72,24 @@ export default function Post() {
       if (postSnap.exists()) {
         const postData = postSnap.data();
 
-        if (postData.imagePath) {
-          const imageRef = ref(storage, postData.imagePath);
-          await deleteObject(imageRef);
-          console.log("Bilden togs bort från Storage.");
+        // Tar bort alla bilder från Storage
+        if (Array.isArray(postData.images)) {
+          const deleteImagePromises = postData.images.map((img) => {
+            if (img.path) {
+              const imageRef = ref(storage, img.path);
+              return deleteObject(imageRef)
+                .then(() => console.log("Tog bort bild:", img.path))
+                .catch((err) =>
+                  console.warn("Kunde inte ta bort bild från storage:", err)
+                );
+            }
+            return Promise.resolve();
+          });
+
+          await Promise.all(deleteImagePromises);
         }
 
+        // Tar bort alla kommentarer
         const commentsRef = collection(db, "posts", postId, "comments");
         const commentSnapshots = await getDocs(commentsRef);
         const deletePromises = commentSnapshots.docs.map((docSnap) =>
@@ -84,6 +97,7 @@ export default function Post() {
         );
         await Promise.all(deletePromises);
 
+        // Tar bort själva inlägget
         await deleteDoc(postRef);
         console.log("Inlägget togs bort.");
         navigate("/");
@@ -143,27 +157,35 @@ export default function Post() {
       <div className="single-post-container">
         <h1 className="single-post-title">{post.title}</h1>
         <p className="single-post-content">{post.content}</p>
-        {post.imageUrl && (
-          <>
-            <img
-              className="single-post-img"
-              title="Klicka för storbild"
-              src={post.imageUrl}
-              alt={post.title}
-              onClick={() => setShowFullImage(true)}
-            />
-            {showFullImage && (
-              <div className="overlay" onClick={() => setShowFullImage(false)}>
-                <img
-                  className="full-image"
-                  src={post.imageUrl}
-                  alt={post.title}
-                />
-                <span className="close">&times;</span>
-              </div>
-            )}
-          </>
+
+        {(post.images?.length > 0 || post.imageUrl) && (
+          <div className="image-gallery">
+            {(post.images?.length > 0
+              ? post.images
+              : [{ url: post.imageUrl }]
+            ).map((img, index) => (
+              <img
+                key={index}
+                className="single-post-img"
+                title="Klicka för storbild"
+                src={img.url}
+                alt={`Bild ${index + 1}`}
+                onClick={() => {
+                  setShowFullImage(true);
+                  setCurrentImage(img.url);
+                }}
+              />
+            ))}
+          </div>
         )}
+
+        {showFullImage && (
+          <div className="overlay" onClick={() => setShowFullImage(false)}>
+            <img className="full-image" src={currentImage} alt="Stor bild" />
+            <span className="close">&times;</span>
+          </div>
+        )}
+
         <div className="single-post-footer">
           <p className="post-author">{post.author.name}</p>
           <p className="post-time">

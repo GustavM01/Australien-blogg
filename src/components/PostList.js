@@ -53,10 +53,10 @@ export default function PostList() {
           <div className="post-container">
             <h3 className="post-title">{post.title}</h3>
             <p className="post-content">{post.content}</p>
-            {post.imageUrl && (
+            {(post.images?.length > 0 || post.imageUrl) && (
               <div className="image-wrapper">
                 <img
-                  src={post.imageUrl}
+                  src={post.images?.[0]?.url || post.imageUrl} // Så att gamla inlägg och nya inlägg fungerar
                   alt={post.title}
                   className="post-image"
                 />
