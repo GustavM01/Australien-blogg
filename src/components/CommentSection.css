@@ -133,7 +133,6 @@
 .reply-btn:hover {
   cursor: pointer;
   color: gray;
-  border-radius: 50%;
 }
 
 .reply-form {
