@@ -14,6 +14,21 @@ export default function PostList() {
     return stored === "true";
   });
 
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollToTop(window.scrollY >= 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     localStorage.setItem("reverseOrder", reverseOrder);
   }, [reverseOrder]);
@@ -27,6 +42,16 @@ export default function PostList() {
         ...doc.data(),
       }));
       setPosts(allPosts);
+
+      const savedScroll = sessionStorage.getItem("postListScroll");
+      if (savedScroll && parseInt(savedScroll, 10) > 0) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: parseInt(savedScroll, 10),
+            behavior: "smooth",
+          });
+        }, 150);
+      }
     };
     loadPosts();
   }, []);
@@ -43,12 +68,21 @@ export default function PostList() {
         {reverseOrder ? "Visa nyast först " : "Visa äldst först "}
         <FaArrowUp className={`arrow-icon ${reverseOrder ? "rotated" : ""}`} />
       </button>
+      {showScrollToTop && (
+        <button onClick={scrollToTop} className="scroll-top-btn">
+          <FaArrowUp />
+        </button>
+      )}
+
       {displayedPosts.map((post) => (
         <Link
           className="post-link"
           key={post.id}
           style={{ color: "black", textDecoration: "none" }}
           to={`/post/${post.id}`}
+          onClick={() =>
+            sessionStorage.setItem("postListScroll", window.scrollY)
+          }
         >
           <div className="post-container">
             <h3 className="post-title">{post.title}</h3>

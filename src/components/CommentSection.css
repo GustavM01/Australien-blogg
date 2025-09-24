@@ -20,20 +20,31 @@
   font-size: inherit;
   font-family: inherit;
   resize: none;
+  border-radius: 5px;
 }
 
 .comment-form button {
-  /* padding: 0.5rem 1rem; */
-  width: 70px;
-  height: 30px;
+  /* width: 70px;
+  height: 30px; */
+  padding: 0.45rem;
+  border-radius: 0.8rem;
+  border: none;
+  background-color: #d2d2d2;
+  padding-inline: 0.7rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.comment-form button:hover {
+  cursor: pointer;
+  background-color: #e0e0e0;
 }
 
 .comment {
-  /* border: 1px solid #ccc; */
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   background-color: white;
   padding-top: 0.5rem;
+  padding-bottom: 0.7rem;
   display: flex;
   flex-direction: column;
   width: 60%;
@@ -42,8 +53,8 @@
 
 .delete-comment {
   position: absolute;
-  right: 7px;
-  top: 7px;
+  left: 8px;
+  top: 8px;
   width: 30px;
   height: 30px;
 }
@@ -53,7 +64,7 @@
 }
 
 .comment p {
-  margin: 0.5rem 1rem;
+  margin: 0.2rem 1rem;
 }
 
 .comment-list {
@@ -67,6 +78,91 @@
 .time {
   font-size: 0.8rem;
   color: #666;
+}
+
+.reply {
+  margin: 0.3rem 2rem;
+  padding: 0.4rem 0.75rem;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  position: relative;
+  border-left: 3px solid #ccc;
+}
+
+.reply-delete {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.reply-delete:hover {
+  opacity: 0.8;
+}
+
+.reply-author {
+  font-weight: 600;
+  color: #222;
+  font-size: 0.85rem;
+}
+
+.reply-text {
+  margin: 0.25rem 0 0 0;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.reply .time {
+  font-size: 0.7rem;
+  color: #777;
+  margin-left: 0.25rem;
+}
+
+.reply-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.reply-btn:hover {
+  cursor: pointer;
+  color: gray;
+  border-radius: 50%;
+}
+
+.reply-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.reply-textarea {
+  font-family: inherit;
+  width: 60%;
+  height: 3em;
+  resize: none;
+  border-radius: 5px;
+}
+
+.reply-submit-btn {
+  padding: 0.45rem;
+  border-radius: 0.8rem;
+  border: none;
+  background-color: #d2d2d2;
+  padding-inline: 0.7rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.reply-submit-btn:hover {
+  cursor: pointer;
+  background-color: #e0e0e0;
 }
 
 @media (max-width: 1200px) {
@@ -106,5 +202,15 @@
 
   .comment-form textarea {
     width: 55vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .comment {
+    width: 82vw;
+  }
+
+  .comment-form textarea {
+    width: 70vw;
   }
 }

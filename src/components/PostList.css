@@ -100,6 +100,28 @@
   transform: rotate(180deg);
 }
 
+.scroll-top-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: darkgray;
+  color: white;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-top-btn:hover {
+  background-color: gray;
+}
+
 /* Mobile */
 
 @media (max-width: 1400px) {
@@ -128,6 +150,11 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     line-clamp: 3;
+  }
+
+  .scroll-top-btn {
+    top: 10px;
+    left: 10px;
   }
 }
 

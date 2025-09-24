@@ -214,6 +214,10 @@
   .popup-content textarea {
     min-height: 300px;
   }
+  .edit-btn {
+    right: 160px;
+    top: 0;
+  }
 }
 
 @media (max-width: 420px) {
