@@ -11,6 +11,20 @@ body {
   color: #222; /* mörkgrå istället för svart = mindre kontrasttrötthet */
 }
 
+.normal-btn {
+  padding: 0.45rem;
+  border-radius: 0.8rem;
+  border: none;
+  background-color: #d2d2d2;
+  padding-inline: 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.normal-btn:hover {
+  background-color: #e0e0e0;
+}
+
 /* .App-logo {
   height: 40vmin;
   pointer-events: none;

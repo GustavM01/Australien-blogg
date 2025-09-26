@@ -18,6 +18,7 @@ import { formatTimestamp } from "../utils/formatTimestamp";
 import { useAuth } from "../hooks/useAuth";
 import { TiDelete } from "react-icons/ti";
 import { GoReply } from "react-icons/go";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function CommentSection({ postId }) {
   const [commentText, setCommentText] = useState("");
@@ -25,6 +26,8 @@ export default function CommentSection({ postId }) {
 
   const [replyTo, setReplyTo] = useState(null);
   const [replyText, setReplyText] = useState("");
+
+  const [showReplys, setShowReplys] = useState(null);
 
   const user = useAuth();
 
@@ -128,35 +131,56 @@ export default function CommentSection({ postId }) {
             <span className="time">{formatTimestamp(comment.timestamp)}</span>
             <p>{comment.text}</p>
 
-            {comment.replies
-              ?.slice()
-              .sort(
-                (a, b) =>
-                  new Date(b.timestamp.seconds * 1000) -
-                  new Date(a.timestamp.seconds * 1000)
-              )
-              .map((reply, i) => (
-                <div key={i} className="reply">
-                  {user.uid === reply.userId && (
-                    <TiDelete
-                      title="Ta bort svar"
-                      className="reply-delete"
-                      onClick={() => handleDeleteReply(comment.id, reply)}
-                    />
-                  )}
-                  <strong className="reply-author">{reply.userName}</strong>
-                  <span className="time">
-                    {formatTimestamp(reply.timestamp)}
-                  </span>
-                  <p className="reply-text">{reply.text}</p>
-                </div>
-              ))}
+            {comment.replies && (
+              <button
+                className="show-replies-btn"
+                onClick={() => {
+                  setShowReplys((prev) =>
+                    prev === comment.id ? null : comment.id
+                  );
+                  setReplyTo((prev) => prev === comment.id && null);
+                }}
+              >
+                Visa {comment.replies.length} svar
+                <FaArrowUp
+                  className={` ${showReplys !== comment.id ? "" : "rotated"} `}
+                />
+              </button>
+            )}
+
+            {showReplys === comment.id &&
+              comment.replies
+                ?.slice()
+                .sort(
+                  (a, b) =>
+                    new Date(b.timestamp.seconds * 1000) -
+                    new Date(a.timestamp.seconds * 1000)
+                )
+                .map((reply, i) => (
+                  <div key={i} className="reply">
+                    {user.uid === reply.userId && (
+                      <TiDelete
+                        title="Ta bort svar"
+                        className="reply-delete"
+                        onClick={() => handleDeleteReply(comment.id, reply)}
+                      />
+                    )}
+                    <strong className="reply-author">{reply.userName}</strong>
+                    <span className="time">
+                      {formatTimestamp(reply.timestamp)}
+                    </span>
+                    <p className="reply-text">{reply.text}</p>
+                  </div>
+                ))}
 
             <GoReply
               className="reply-btn"
               title="Svara på kommentar"
               onClick={() => {
-                setReplyTo((prev) => (prev === comment.id ? null : comment.id));
+                setReplyTo(
+                  (prev) => (prev === comment.id ? null : comment.id),
+                  setShowReplys(comment.id)
+                );
               }}
             />
 

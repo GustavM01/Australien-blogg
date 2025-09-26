@@ -164,6 +164,21 @@
   background-color: #e0e0e0;
 }
 
+.show-replies-btn {
+  margin: auto;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.show-replies-btn:hover {
+  color: #999;
+}
+
 @media (max-width: 1200px) {
   .comment {
     width: 80%;
@@ -206,7 +221,7 @@
 
 @media (max-width: 400px) {
   .comment {
-    width: 82vw;
+    width: 90vw;
   }
 
   .comment-form textarea {
